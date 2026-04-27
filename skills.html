@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skills & Projects — Vivek Kalyani</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f5f0e8;--ink:#1a1410;--accent:#c8520a;--accent2:#2563a8;--muted:#8a7f72;--surface:#ede8df;--border:rgba(26,20,16,0.1);--white:#faf7f2;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:0.6;}
+.cursor{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s;}
+.cursor-ring{width:32px;height:32px;border:1.5px solid var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s ease;opacity:0.6;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 5rem;background:rgba(245,240,232,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:var(--ink);letter-spacing:-0.02em;}
+.nav-logo span{color:var(--accent);font-style:italic;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;transition:color 0.3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:var(--accent);transition:width 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{padding:0.55rem 1.4rem;background:var(--ink);color:var(--bg);border-radius:100px;font-size:0.8rem;font-weight:500;text-decoration:none;letter-spacing:0.04em;transition:background 0.3s;cursor:none;}
+.nav-cta:hover{background:var(--accent);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.page-hero{padding:10rem 5rem 4rem;position:relative;overflow:hidden;}
+.page-hero::before{content:'SKILLS';font-family:'Playfair Display',serif;font-weight:700;position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-size:14rem;color:rgba(26,20,16,0.03);pointer-events:none;letter-spacing:-0.05em;}
+.page-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.8rem;animation:fadeUp 0.6s 0.2s both;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:700;letter-spacing:-0.03em;line-height:1.05;animation:fadeUp 0.6s 0.4s both;}
+.page-title em{font-style:italic;color:var(--accent);}
+
+/* Skills grid */
+.skills-section{padding:4rem 5rem 5rem;background:var(--white);}
+.section-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.8rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:3rem;}
+
+.skill-categories{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.skill-cat{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all 0.3s;cursor:none;}
+.skill-cat:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 16px 50px rgba(26,20,16,0.08);}
+.skill-cat-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.5rem;}
+.skill-cat-icon{width:40px;height:40px;border-radius:10px;background:rgba(200,82,10,0.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.skill-cat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+.skill-items{display:flex;flex-direction:column;gap:0.9rem;}
+.skill-item{}
+.skill-name-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;}
+.skill-name{font-size:0.82rem;font-weight:500;color:var(--ink);}
+.skill-pct{font-size:0.72rem;color:var(--accent);font-weight:600;font-family:'JetBrains Mono',monospace;}
+.skill-bar{height:4px;background:var(--border);border-radius:10px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--accent),rgba(200,82,10,0.5));animation:fillBar 1.4s cubic-bezier(0.16,1,0.3,1) both;}
+@keyframes fillBar{from{width:0 !important}}
+
+/* Tools row */
+.tools-full{margin-top:3rem;}
+.tools-group{margin-bottom:1.5rem;}
+.tools-group-label{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:0.7rem;}
+.tools-chips{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.tool-chip{font-size:0.78rem;padding:0.4rem 0.9rem;border-radius:6px;border:1.5px solid var(--border);color:var(--muted);font-weight:500;background:var(--white);transition:all 0.25s;cursor:none;}
+.tool-chip:hover{border-color:var(--accent);color:var(--accent);background:rgba(200,82,10,0.04);}
+.tool-chip.primary{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.tool-chip.primary:hover{background:var(--accent);border-color:var(--accent);}
+
+/* Projects */
+.projects-section{padding:5rem 5rem;background:var(--bg);}
+.projects-list{display:flex;flex-direction:column;gap:2rem;}
+.project-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  display:grid;grid-template-columns:auto 1fr;
+  transition:all 0.4s;
+  cursor:none;
+}
+.project-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(26,20,16,0.1);border-color:rgba(200,82,10,0.25);}
+.project-num-col{
+  width:90px;
+  background:linear-gradient(180deg,var(--ink),#2d2016);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1rem;
+  flex-shrink:0;
+}
+.project-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:rgba(200,82,10,0.7);}
+.project-num-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.3rem;text-align:center;}
+.project-body{padding:2rem 2.5rem;}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;}
+.project-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;}
+.project-date{font-size:0.72rem;color:var(--muted);font-weight:500;padding:0.25rem 0.7rem;background:var(--surface);border-radius:100px;}
+.project-metrics{display:flex;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.metric{display:flex;flex-direction:column;}
+.metric-val{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--accent);}
+.metric-label{font-size:0.68rem;color:var(--muted);font-weight:500;}
+.project-bullets{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.2rem;}
+.project-bullets li{font-size:0.83rem;color:var(--muted);line-height:1.7;padding-left:1rem;position:relative;}
+.project-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:0.75rem;}
+.project-bullets li strong{color:var(--ink);font-weight:500;}
+.project-tools{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.pt{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.25rem 0.7rem;background:rgba(200,82,10,0.08);color:var(--accent);border-radius:4px;font-weight:500;}
+
+/* Professional skills */
+.prof-section{padding:5rem 5rem;background:var(--ink);}
+.prof-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--white);margin-bottom:3rem;letter-spacing:-0.02em;}
+.prof-title em{font-style:italic;color:var(--accent);}
+.prof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.prof-item{padding:1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;display:flex;align-items:center;gap:1rem;transition:all 0.3s;}
+.prof-item:hover{background:rgba(255,255,255,0.07);border-color:rgba(200,82,10,0.3);transform:translateY(-3px);}
+.prof-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.prof-name{font-size:0.85rem;color:#faf7f2;font-weight:500;}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Vivek <span>Kalyani</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html" class="active">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Hire Me →</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-label">// Skills & Projects</div>
+  <h1 class="page-title">What I Know,<br/><em>What I Build</em></h1>
+</div>
+
+<section class="skills-section">
+  <div class="section-label">// Technical Skills</div>
+  <h2 class="section-title">Core Competencies</h2>
+
+  <div class="skill-categories">
+    <div class="skill-cat">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon">🗄️</div>
+        <div class="skill-cat-name">SQL & Programming</div>
+      </div>
+      <div class="skill-items">
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">SQL (Joins, Aggregations, Subqueries)</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;animation-delay:0.1s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Python (Pandas, NumPy, Matplotlib)</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">PostgreSQL / T-SQL</span><span class="skill-pct">72%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:72%;animation-delay:0.3s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Data Manipulation & Transformation</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%;animation-delay:0.4s"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon">📊</div>
+        <div class="skill-cat-name">Reporting & Visualisation</div>
+      </div>
+      <div class="skill-items">
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Power BI (Multi-Page Dashboards)</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%;animation-delay:0.1s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">DAX (Measures, Calculated Columns)</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Power Query / ETL Pipelines</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;animation-delay:0.3s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Tableau (Familiar)</span><span class="skill-pct">60%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:60%;animation-delay:0.4s"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon">🧮</div>
+        <div class="skill-cat-name">Data & Analytics</div>
+      </div>
+      <div class="skill-items">
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">ETL Pipelines & Data Cleaning</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%;animation-delay:0.1s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Trend & Pattern Analysis</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Data Modelling (Star/Snowflake)</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%;animation-delay:0.3s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Advanced Excel (Pivot, VLOOKUP)</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%;animation-delay:0.4s"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon">🤝</div>
+        <div class="skill-cat-name">Professional Skills</div>
+      </div>
+      <div class="skill-items">
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Stakeholder Management</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%;animation-delay:0.1s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Data Storytelling</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Cross-functional Collaboration</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%;animation-delay:0.3s"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name-row"><span class="skill-name">Unstructured Problem Solving</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%;animation-delay:0.4s"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-full">
+    <div class="section-label" style="margin-top:3rem">// Full Toolkit</div>
+    <div class="tools-group">
+      <div class="tools-group-label">Primary Tools</div>
+      <div class="tools-chips">
+        <span class="tool-chip primary">SQL</span>
+        <span class="tool-chip primary">Python</span>
+        <span class="tool-chip primary">Power BI</span>
+        <span class="tool-chip primary">Excel</span>
+      </div>
+    </div>
+    <div class="tools-group">
+      <div class="tools-group-label">Libraries & Frameworks</div>
+      <div class="tools-chips">
+        <span class="tool-chip">Pandas</span>
+        <span class="tool-chip">NumPy</span>
+        <span class="tool-chip">Matplotlib</span>
+        <span class="tool-chip">DAX</span>
+        <span class="tool-chip">Power Query</span>
+      </div>
+    </div>
+    <div class="tools-group">
+      <div class="tools-group-label">Databases & Platforms</div>
+      <div class="tools-chips">
+        <span class="tool-chip">PostgreSQL</span>
+        <span class="tool-chip">T-SQL</span>
+        <span class="tool-chip">Tableau</span>
+        <span class="tool-chip">GitHub</span>
+      </div>
+    </div>
+    <div class="tools-group">
+      <div class="tools-group-label">Concepts</div>
+      <div class="tools-chips">
+        <span class="tool-chip">ETL Pipelines</span>
+        <span class="tool-chip">Star Schema</span>
+        <span class="tool-chip">Snowflake Schema</span>
+        <span class="tool-chip">Statistical Analysis</span>
+        <span class="tool-chip">Data Modelling</span>
+        <span class="tool-chip">KPI Reporting</span>
+        <span class="tool-chip">Dashboard Automation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects-section">
+  <div class="section-label">// Analytics Projects</div>
+  <h2 class="section-title">End-to-End Projects</h2>
+  <div class="projects-list">
+
+    <div class="project-card">
+      <div class="project-num-col">
+        <div class="project-num">01</div>
+        <div class="project-num-label">Project</div>
+      </div>
+      <div class="project-body">
+        <div class="project-header">
+          <div class="project-title">Financial Performance Analysis</div>
+          <div class="project-date">Feb 2026</div>
+        </div>
+        <div class="project-metrics">
+          <div class="metric"><div class="metric-val">$118.73M</div><div class="metric-label">Revenue Tracked</div></div>
+          <div class="metric"><div class="metric-val">$16.89M</div><div class="metric-label">Profit Analysed</div></div>
+          <div class="metric"><div class="metric-val">1.13M</div><div class="metric-label">Units</div></div>
+          <div class="metric"><div class="metric-val">+254%</div><div class="metric-label">YoY Growth Found</div></div>
+        </div>
+        <ul class="project-bullets">
+          <li>Assembled and analysed large-scale financial data to build a <strong>4-filter executive dashboard</strong> tracking revenue, profit, and units across product, segment, country, and year dimensions.</li>
+          <li>Applied SQL and DAX to identify <strong>254% YoY revenue growth</strong> ($26M → $92M) and surfaced segment-level insights: Government 44.22%, Small Business 35.74%.</li>
+          <li>Delivered strategic, business-focused recommendations to stakeholders across management levels.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="pt">Power BI</span><span class="pt">DAX</span><span class="pt">SQL</span><span class="pt">Executive Dashboard</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-col">
+        <div class="project-num">02</div>
+        <div class="project-num-label">Project</div>
+      </div>
+      <div class="project-body">
+        <div class="project-header">
+          <div class="project-title">Global Superstore Sales & Profit Analysis</div>
+          <div class="project-date">Mar 2026</div>
+        </div>
+        <div class="project-metrics">
+          <div class="metric"><div class="metric-val">$12.64M</div><div class="metric-label">Sales Analysed</div></div>
+          <div class="metric"><div class="metric-val">178K</div><div class="metric-label">Units</div></div>
+          <div class="metric"><div class="metric-val">25K</div><div class="metric-label">Orders</div></div>
+          <div class="metric"><div class="metric-val">4 Yrs</div><div class="metric-label">Data Range</div></div>
+        </div>
+        <ul class="project-bullets">
+          <li>Organised and disseminated complex retail data across 4 years; built <strong>automated YoY trend dashboards</strong> identifying seasonal patterns and unlocking planning value for business partners.</li>
+          <li>Innovated a scalable <strong>self-serve reporting solution</strong> with real-time data slicing by category, segment, and year — eliminating manual reporting effort across teams.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="pt">Power BI</span><span class="pt">SQL</span><span class="pt">YoY Trends</span><span class="pt">Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-col">
+        <div class="project-num">03</div>
+        <div class="project-num-label">Project</div>
+      </div>
+      <div class="project-body">
+        <div class="project-header">
+          <div class="project-title">Customer 360° & AI-Based Segmentation</div>
+          <div class="project-date">Jan 2026</div>
+        </div>
+        <div class="project-metrics">
+          <div class="metric"><div class="metric-val">8K</div><div class="metric-label">Transactions</div></div>
+          <div class="metric"><div class="metric-val">$4M</div><div class="metric-label">Revenue</div></div>
+          <div class="metric"><div class="metric-val">3K</div><div class="metric-label">Customers Segmented</div></div>
+          <div class="metric"><div class="metric-val">$1.5K</div><div class="metric-label">Switzerland AOV</div></div>
+        </div>
+        <ul class="project-bullets">
+          <li>Interpreted trends in 8K transaction records using <strong>Python-assisted AI segmentation</strong> — independently solved an unstructured business problem, classifying 3K customers for targeted retention decisions.</li>
+          <li>Built <strong>geographic performance dashboards</strong>: Switzerland $1.5K AOV, UAE $1.0K, USA $0.8K — surfacing high-value accounts and supporting data-driven stakeholder decisions.</li>
+        </ul>
+        <div class="project-tools">
+          <span class="pt">Power BI</span><span class="pt">Python</span><span class="pt">AI Segmentation</span><span class="pt">Geo Dashboards</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="prof-section">
+  <div class="section-label" style="color:rgba(200,82,10,0.7)">// Soft Skills</div>
+  <h2 class="prof-title">Professional <em>Strengths</em></h2>
+  <div class="prof-grid">
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Stakeholder Management</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Cross-functional Collaboration</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Unstructured Problem Solving</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Innovation & New Method Development</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Data Storytelling</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Attention to Detail</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Prioritisation</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Reporting Automation</div></div>
+    <div class="prof-item"><div class="prof-dot"></div><div class="prof-name">Large Dataset Querying</div></div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Vivek Kalyani · Data Analyst · Pune</span>
+  <span>vivekkalyani256@gmail.com · <a href="tel:+919763877077">+91 9763877077</a></span>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}loop();
+const obs=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting){en.target.style.opacity=1;en.target.style.transform='translateY(0)';}}),{threshold:0.08});
+document.querySelectorAll('.skill-cat,.project-card,.prof-item,.tool-chip').forEach((c,i)=>{
+  c.style.opacity=0;c.style.transform='translateY(20px)';
+  c.style.transition=`opacity 0.5s ${i*0.06}s ease,transform 0.5s ${i*0.06}s ease`;
+  obs.observe(c);
+});
+</script>
+</body>
+</html>

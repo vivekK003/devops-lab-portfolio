@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Vivek Kalyani</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f5f0e8;--ink:#1a1410;--accent:#c8520a;--accent2:#2563a8;--muted:#8a7f72;--surface:#ede8df;--border:rgba(26,20,16,0.1);--white:#faf7f2;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:0.6;}
+.cursor{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s;}
+.cursor-ring{width:32px;height:32px;border:1.5px solid var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s ease;opacity:0.6;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 5rem;background:rgba(245,240,232,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:var(--ink);letter-spacing:-0.02em;}
+.nav-logo span{color:var(--accent);font-style:italic;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;transition:color 0.3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:var(--accent);transition:width 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{padding:0.55rem 1.4rem;background:var(--ink);color:var(--bg);border-radius:100px;font-size:0.8rem;font-weight:500;text-decoration:none;letter-spacing:0.04em;transition:background 0.3s;cursor:none;}
+.nav-cta:hover{background:var(--accent);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* Layout */
+.contact-layout{
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+
+/* Left — dark side */
+.contact-left{
+  background:var(--ink);
+  padding:9rem 4rem 4rem 5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.contact-left::before{
+  content:'HELLO';
+  font-family:'Playfair Display',serif;font-weight:700;
+  position:absolute;bottom:-3rem;left:-1rem;
+  font-size:14rem;color:rgba(255,255,255,0.02);
+  pointer-events:none;letter-spacing:-0.05em;
+}
+.contact-left::after{
+  content:'';position:absolute;
+  top:0;right:0;bottom:0;width:1px;
+  background:rgba(255,255,255,0.06);
+}
+
+.cl-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,82,10,0.8);font-weight:600;margin-bottom:0.8rem;animation:fadeUp 0.6s 0.2s both;}
+.cl-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,4.5vw,4.5rem);font-weight:700;line-height:1.05;color:#faf7f2;letter-spacing:-0.03em;margin-bottom:1.2rem;animation:fadeUp 0.6s 0.4s both;}
+.cl-title em{font-style:italic;color:var(--accent);}
+.cl-desc{font-size:0.92rem;line-height:1.85;color:rgba(255,255,255,0.45);max-width:400px;margin-bottom:3rem;animation:fadeUp 0.6s 0.6s both;}
+
+/* Direct contacts */
+.direct-links{display:flex;flex-direction:column;gap:1rem;animation:fadeUp 0.6s 0.8s both;}
+.direct-link{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.3rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px;
+  text-decoration:none;
+  color:#faf7f2;
+  transition:all 0.3s;
+  cursor:none;
+}
+.direct-link:hover{background:rgba(255,255,255,0.08);border-color:rgba(200,82,10,0.4);transform:translateX(6px);}
+.dl-icon{width:40px;height:40px;border-radius:8px;background:rgba(200,82,10,0.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.dl-label{font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:600;}
+.dl-val{font-size:0.88rem;font-weight:500;margin-top:0.1rem;}
+.dl-arrow{margin-left:auto;color:rgba(255,255,255,0.25);transition:transform 0.3s,color 0.3s;}
+.direct-link:hover .dl-arrow{transform:translateX(4px);color:var(--accent);}
+
+/* Availability badge */
+.avail-section{margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.07);animation:fadeUp 0.6s 1s both;}
+.avail-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:0.7rem;}
+.avail-status{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:#4ade80;font-size:0.8rem;font-weight:600;padding:0.45rem 1rem;border-radius:100px;}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Right — form */
+.contact-right{
+  background:var(--white);
+  padding:9rem 5rem 4rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.form-eyebrow{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.6rem;animation:fadeUp 0.6s 0.3s both;}
+.form-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem;animation:fadeUp 0.6s 0.5s both;}
+.form-sub{font-size:0.85rem;color:var(--muted);margin-bottom:2.5rem;animation:fadeUp 0.6s 0.7s both;}
+
+.form-group{margin-bottom:1.4rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+label{display:block;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:0.5rem;}
+input,textarea,select{
+  width:100%;
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:0.85rem 1rem;
+  color:var(--ink);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.88rem;
+  font-weight:400;
+  outline:none;
+  transition:border-color 0.3s,box-shadow 0.3s,background 0.3s;
+  -webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,82,10,0.08);background:var(--white);}
+input::placeholder,textarea::placeholder{color:var(--muted);}
+textarea{resize:vertical;min-height:120px;line-height:1.7;}
+
+/* Opportunity type */
+.opp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.opp-btn{
+  padding:0.7rem 1rem;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  background:transparent;
+  color:var(--muted);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.8rem;
+  font-weight:500;
+  cursor:none;
+  transition:all 0.25s;
+  text-align:left;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.opp-btn:hover,.opp-btn.selected{border-color:var(--accent);color:var(--ink);background:rgba(200,82,10,0.05);}
+.opp-btn .opp-icon{font-size:0.9rem;}
+
+.submit-btn{
+  width:100%;
+  padding:1rem 2rem;
+  background:var(--ink);
+  border:none;
+  border-radius:8px;
+  color:var(--bg);
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  font-size:1rem;
+  letter-spacing:0.02em;
+  cursor:none;
+  transition:all 0.3s;
+  margin-top:1rem;
+  position:relative;overflow:hidden;
+  animation:fadeUp 0.6s 1s both;
+}
+.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transform:translateX(-100%);transition:transform 0.5s ease;}
+.submit-btn:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 12px 40px rgba(200,82,10,0.25);}
+.submit-btn:hover::before{transform:translateX(100%);}
+
+/* Success */
+.success-state{display:none;text-align:center;padding:3rem 2rem;border:1.5px solid rgba(200,82,10,0.2);border-radius:16px;background:rgba(200,82,10,0.03);}
+.success-state.show{display:block;animation:fadeUp 0.5s both;}
+.success-icon{font-size:3rem;margin-bottom:1rem;}
+.success-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:0.5rem;}
+.success-sub{color:var(--muted);font-size:0.88rem;}
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Vivek <span>Kalyani</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="mailto:vivekkalyani256@gmail.com" class="nav-cta">Email Me →</a>
+</nav>
+
+<div class="contact-layout">
+
+  <!-- Left dark panel -->
+  <div class="contact-left">
+    <div class="cl-label">// Get in Touch</div>
+    <h1 class="cl-title">Let's Work<br/><em>Together</em></h1>
+    <p class="cl-desc">I'm actively looking for Data Analyst roles. If you have an opportunity that aligns with SQL, Python, Power BI, or data storytelling — I'd love to hear from you.</p>
+
+    <div class="direct-links">
+      <a href="mailto:vivekkalyani256@gmail.com" class="direct-link">
+        <div class="dl-icon">📧</div>
+        <div>
+          <div class="dl-label">Email</div>
+          <div class="dl-val">vivekkalyani256@gmail.com</div>
+        </div>
+        <span class="dl-arrow">→</span>
+      </a>
+      <a href="tel:+919763877077" class="direct-link">
+        <div class="dl-icon">📱</div>
+        <div>
+          <div class="dl-label">Phone</div>
+          <div class="dl-val">+91 9763877077</div>
+        </div>
+        <span class="dl-arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/vivekkalyani" class="direct-link" target="_blank">
+        <div class="dl-icon">💼</div>
+        <div>
+          <div class="dl-label">LinkedIn</div>
+          <div class="dl-val">linkedin.com/in/vivekkalyani</div>
+        </div>
+        <span class="dl-arrow">→</span>
+      </a>
+      <a href="https://github.com/vivekkalyani" class="direct-link" target="_blank">
+        <div class="dl-icon">🐙</div>
+        <div>
+          <div class="dl-label">GitHub</div>
+          <div class="dl-val">github.com/vivekkalyani</div>
+        </div>
+        <span class="dl-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="avail-section">
+      <div class="avail-label">Current Status</div>
+      <div class="avail-status"><span class="avail-dot"></span> Immediate Joiner · Pune, Maharashtra</div>
+    </div>
+  </div>
+
+  <!-- Right form -->
+  <div class="contact-right">
+    <div class="form-eyebrow">// Send a Message</div>
+    <h2 class="form-title">Drop Me a Line</h2>
+    <p class="form-sub">I'll get back to you as quickly as possible.</p>
+
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="e.g. Rahul"/>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="e.g. Sharma"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="your@company.com"/>
+      </div>
+
+      <div class="form-group">
+        <label for="company">Company / Organisation</label>
+        <input type="text" id="company" placeholder="Your company name (optional)"/>
+      </div>
+
+      <div class="form-group">
+        <label>Opportunity Type</label>
+        <div class="opp-grid">
+          <button class="opp-btn" onclick="selectOpp(this)"><span class="opp-icon">💼</span> Full-time Role</button>
+          <button class="opp-btn" onclick="selectOpp(this)"><span class="opp-icon">📋</span> Internship</button>
+          <button class="opp-btn" onclick="selectOpp(this)"><span class="opp-icon">🤝</span> Freelance / Contract</button>
+          <button class="opp-btn" onclick="selectOpp(this)"><span class="opp-icon">💬</span> Just Saying Hi</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell me about the role, project, or how I can help..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="handleSubmit()">Send Message →</button>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Message Received!</div>
+      <div class="success-sub">Thanks for reaching out. I'll reply to your email shortly. Looking forward to connecting!</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 Vivek Kalyani · Data Analyst · Pune, Maharashtra</span>
+  <span>vivekkalyani256@gmail.com · <a href="tel:+919763877077">+91 9763877077</a></span>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}loop();
+document.querySelectorAll('a,button,input,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='44px';ring.style.height='44px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='10px';cursor.style.height='10px';ring.style.width='32px';ring.style.height='32px';});
+});
+
+function selectOpp(btn){
+  document.querySelectorAll('.opp-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function handleSubmit(){
+  const email=document.getElementById('email').value;
+  const msg=document.getElementById('message').value;
+  if(!email||!msg){alert('Please fill in at least your email and message.');return;}
+  document.getElementById('contactForm').style.display='none';
+  document.getElementById('successState').classList.add('show');
+}
+</script>
+</body>
+</html>

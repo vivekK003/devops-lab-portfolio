@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vivek Kalyani — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #f5f0e8;
+  --ink: #1a1410;
+  --accent: #c8520a;
+  --accent2: #2563a8;
+  --muted: #8a7f72;
+  --surface: #ede8df;
+  --border: rgba(26,20,16,0.1);
+  --white: #faf7f2;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Grain texture */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9990; opacity: 0.6;
+}
+
+/* Custom cursor */
+.cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+.cursor-ring { width: 32px; height: 32px; border: 1.5px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; opacity: 0.6; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 5rem;
+  background: rgba(245,240,232,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  animation: slideDown 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--accent); font-style: italic; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-cta {
+  padding: 0.55rem 1.4rem;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.3s, transform 0.2s;
+  cursor: none;
+}
+.nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-left {
+  padding: 6rem 3rem 4rem 5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-right {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  padding: 4rem 4rem 4rem 2rem;
+}
+
+/* Animated data chart in hero */
+.chart-visual {
+  width: 100%; max-width: 480px;
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  padding: 2rem;
+  box-shadow: 0 24px 80px rgba(26,20,16,0.08);
+  animation: floatUp 0.9s 0.8s cubic-bezier(0.16,1,0.3,1) both;
+  position: relative;
+}
+@keyframes floatUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.chart-title-small { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.chart-badge { background: rgba(200,82,10,0.1); color: var(--accent); font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 100px; }
+.chart-metric { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+.chart-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.5rem; }
+.bars { display: flex; align-items: flex-end; gap: 0.5rem; height: 100px; }
+.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+.bar {
+  width: 100%; border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, var(--accent), rgba(200,82,10,0.3));
+  animation: growBar 1.2s cubic-bezier(0.16,1,0.3,1) both;
+}
+.bar-label { font-size: 0.65rem; color: var(--muted); font-weight: 500; }
+@keyframes growBar { from { height: 0 !important; } }
+.chart-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+.mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mini-stat-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); }
+.mini-stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+
+/* Floating cards */
+.float-card {
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.2rem;
+  box-shadow: 0 8px 30px rgba(26,20,16,0.08);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  animation: floatAnim 4s ease-in-out infinite;
+}
+.float-card-1 { top: 12%; left: -6%; animation-delay: 0s; }
+.float-card-2 { bottom: 15%; left: -3%; animation-delay: -2s; }
+.float-card .fc-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+.float-card .fc-lbl { color: var(--muted); font-size: 0.68rem; }
+@keyframes floatAnim { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Hero text */
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s 0.2s both;
+}
+.hero-tag::before { content: ''; width: 24px; height: 1.5px; background: var(--accent); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  animation: fadeUp 0.7s 0.35s both;
+}
+.hero-name em { font-style: italic; color: var(--accent); }
+.hero-role {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+  animation: fadeUp 0.7s 0.5s both;
+}
+.hero-desc {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 420px;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.7s 0.65s both;
+}
+.hero-desc strong { color: var(--ink); font-weight: 500; }
+.hero-actions { display: flex; gap: 1rem; animation: fadeUp 0.7s 0.8s both; }
+.btn-dark { padding: 0.85rem 2rem; background: var(--ink); color: var(--bg); border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; cursor: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-dark:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(200,82,10,0.25); }
+.btn-outline { padding: 0.85rem 2rem; background: transparent; color: var(--ink); border-radius: 6px; border: 1.5px solid var(--border); font-size: 0.88rem; font-weight: 500; text-decoration: none; cursor: none; transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+/* Available badge */
+.avail-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.78rem; color: var(--muted);
+  animation: fadeUp 0.7s 1s both;
+}
+.avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: blink 2s infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Project highlights strip */
+.highlights {
+  padding: 5rem 5rem;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.highlights::before {
+  content: 'DATA';
+  position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 14rem; color: rgba(255,255,255,0.02); pointer-events: none;
+  letter-spacing: -0.05em;
+}
+.hl-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+.hl-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); color: #faf7f2; font-weight: 700; margin-bottom: 3rem; letter-spacing: -0.02em; }
+.hl-title span { font-style: italic; color: rgba(200,82,10,0.9); }
+.highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.hl-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 2rem;
+  transition: all 0.4s;
+  cursor: none;
+}
+.hl-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); border-color: rgba(200,82,10,0.3); }
+.hl-card-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; }
+.hl-card-title { font-size: 0.9rem; font-weight: 600; color: #faf7f2; margin-bottom: 0.5rem; }
+.hl-card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+.hl-card-tool { margin-top: 1.2rem; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(200,82,10,0.7); font-weight: 600; }
+
+/* Tools section */
+.tools-section { padding: 6rem 5rem; background: var(--white); }
+.section-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem; }
+.tools-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.tool-pill {
+  padding: 0.6rem 1.3rem;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--ink);
+  transition: all 0.3s;
+  cursor: none;
+}
+.tool-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(200,82,10,0.05); transform: translateY(-2px); }
+.tool-pill.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tool-pill.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+/* Footer */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2rem 5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.8rem; color: var(--muted);
+}
+footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Vivek <span>Kalyani</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Hire Me →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Data Analyst · Immediate Joiner</div>
+    <h1 class="hero-name">Vivek<br/><em>Kalyani</em></h1>
+    <div class="hero-role">Data Analyst · SQL · Python · Power BI</div>
+    <p class="hero-desc">
+      BTech IT graduate with <strong>4 end-to-end analytics projects</strong> covering
+      <strong>$118M+ financials</strong>, 196-country macro data, $12.64M retail sales,
+      and AI-based customer segmentation. Turning complex data into clear decisions.
+    </p>
+    <div class="hero-actions">
+      <a href="skills.html" class="btn-dark">View Projects →</a>
+      <a href="contact.html" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="avail-badge">
+      <span class="avail-dot"></span>
+      Available to join immediately · Pune, Maharashtra
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-card float-card-1">
+      <div class="fc-val">$118.73M</div>
+      <div class="fc-lbl">Revenue Analysed</div>
+    </div>
+    <div class="float-card float-card-2">
+      <div class="fc-val">196</div>
+      <div class="fc-lbl">Countries · Macro Data</div>
+    </div>
+
+    <div class="chart-visual">
+      <div class="chart-header">
+        <div class="chart-title-small">YoY Revenue Growth</div>
+        <div class="chart-badge">+254%</div>
+      </div>
+      <div class="chart-metric">$92M</div>
+      <div class="chart-sub">FY Latest vs $26M Prior Year · Financial Dashboard</div>
+      <div class="bars">
+        <div class="bar-wrap"><div class="bar" style="height:30%;animation-delay:0.2s"></div><div class="bar-label">Q1</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:50%;animation-delay:0.35s"></div><div class="bar-label">Q2</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:45%;animation-delay:0.5s"></div><div class="bar-label">Q3</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:75%;animation-delay:0.65s"></div><div class="bar-label">Q4</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:60%;animation-delay:0.8s"></div><div class="bar-label">Q1</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:85%;animation-delay:0.95s"></div><div class="bar-label">Q2</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:95%;animation-delay:1.1s"></div><div class="bar-label">Q3</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:100%;animation-delay:1.25s"></div><div class="bar-label">Q4</div></div>
+      </div>
+      <div class="chart-divider"></div>
+      <div class="mini-stats">
+        <div><div class="mini-stat-val">$16.89M</div><div class="mini-stat-label">Total Profit</div></div>
+        <div><div class="mini-stat-val">1.13M</div><div class="mini-stat-label">Units Tracked</div></div>
+        <div><div class="mini-stat-val">3K</div><div class="mini-stat-label">Customers Segmented</div></div>
+        <div><div class="mini-stat-val">8K</div><div class="mini-stat-label">Transactions Analysed</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="hl-label">// Featured Projects</div>
+  <h2 class="hl-title">Analytics That<br/><span>Drive Decisions</span></h2>
+  <div class="highlights-grid">
+    <div class="hl-card">
+      <div class="hl-card-num">$118M+</div>
+      <div class="hl-card-title">Financial Performance Analysis</div>
+      <div class="hl-card-desc">4-filter executive dashboard tracking revenue, profit & 1.13M units across product, segment, country & year dimensions.</div>
+      <div class="hl-card-tool">Power BI · DAX · SQL · Feb 2026</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-card-num">$12.64M</div>
+      <div class="hl-card-title">Global Superstore Sales Analysis</div>
+      <div class="hl-card-desc">Automated YoY trend dashboards for 178K units across 4 years — self-serve reporting eliminating manual effort.</div>
+      <div class="hl-card-tool">Power BI · SQL · Mar 2026</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-card-num">3K+</div>
+      <div class="hl-card-title">AI-Based Customer Segmentation</div>
+      <div class="hl-card-desc">Python-assisted AI segmentation of 3K customers across 8K transactions · geographic dashboards for $4M revenue.</div>
+      <div class="hl-card-tool">Power BI · Python · Jan 2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="tools-section">
+  <div class="section-label">// Core Toolkit</div>
+  <h2 class="section-title">What I Work With</h2>
+  <div class="tools-row">
+    <span class="tool-pill primary">SQL</span>
+    <span class="tool-pill primary">Python</span>
+    <span class="tool-pill primary">Power BI</span>
+    <span class="tool-pill">DAX</span>
+    <span class="tool-pill">Pandas</span>
+    <span class="tool-pill">NumPy</span>
+    <span class="tool-pill">Matplotlib</span>
+    <span class="tool-pill">Excel (Advanced)</span>
+    <span class="tool-pill">ETL Pipelines</span>
+    <span class="tool-pill">Power Query</span>
+    <span class="tool-pill">Star Schema</span>
+    <span class="tool-pill">Tableau</span>
+    <span class="tool-pill">PostgreSQL</span>
+    <span class="tool-pill">T-SQL</span>
+    <span class="tool-pill">Data Storytelling</span>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Vivek Kalyani · Data Analyst · Pune</span>
+  <span>vivekkalyani256@gmail.com · <a href="tel:+919763877077">+91 9763877077</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}
+loop();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='44px';ring.style.height='44px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='10px';cursor.style.height='10px';ring.style.width='32px';ring.style.height='32px';});
+});
+// scroll reveal
+const obs = new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting){en.target.style.opacity=1;en.target.style.transform='translateY(0)';}}),{threshold:0.1});
+document.querySelectorAll('.hl-card,.tool-pill').forEach((c,i)=>{c.style.opacity=0;c.style.transform='translateY(24px)';c.style.transition=`opacity 0.5s ${i*0.07}s ease, transform 0.5s ${i*0.07}s ease`;obs.observe(c);});
+</script>
+</body>
+</html>
